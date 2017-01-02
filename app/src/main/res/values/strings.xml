@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">oAuth2 Task</string>
+    <string name="label_sign_in">Sign in</string>
+</resources>
