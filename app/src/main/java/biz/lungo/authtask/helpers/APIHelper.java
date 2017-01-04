@@ -8,12 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIHelper {
 
-    private static OkHttpClient.Builder httpClient;
-    private static Retrofit.Builder builder;
-
     public static <S> S createService(Class<S> serviceClass) {
-        httpClient = new OkHttpClient.Builder();
-        builder = new Retrofit.Builder()
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Constants.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
         OkHttpClient client = httpClient.build();

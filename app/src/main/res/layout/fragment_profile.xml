@@ -9,17 +9,31 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/activity_vertical_margin">
 
-        <ImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:id="@+id/rl_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@android:drawable/ic_delete"/>
+
+            <ProgressBar
+                android:id="@+id/pb_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_info_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/iv_avatar"
+            android:layout_below="@id/rl_avatar"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -93,5 +107,15 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_refresh"
+            style="@style/ButtonOrange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_info_list"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_centerHorizontal="true"
+            android:text="@string/refresh"/>
     </RelativeLayout>
 </ScrollView>

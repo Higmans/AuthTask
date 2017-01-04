@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            ((RelativeLayout)view.getParent()).findViewById(R.id.rl_loading).setVisibility(View.GONE);
+            ((RelativeLayout) view.getParent()).findViewById(R.id.rl_loading).setVisibility(View.GONE);
         }
 
         @SuppressWarnings("deprecation")
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         wv.loadUrl(APIHelper.getLoginUrl());
         wv.setWebViewClient(webViewClient);
         builder.setView(rlDialog);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         AlertDialog loginDialog = builder.show();
         Window window = loginDialog.getWindow();
+        // To fix issue with keyboard not showing up
         if (window != null) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                     WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);

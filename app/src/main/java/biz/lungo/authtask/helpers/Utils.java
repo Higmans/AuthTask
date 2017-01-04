@@ -6,6 +6,7 @@ import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Utils {
@@ -30,7 +31,7 @@ public class Utils {
             CookieManager.getInstance().removeAllCookies(null);
             CookieManager.getInstance().flush();
         } else {
-            CookieSyncManager syncManager=CookieSyncManager.createInstance(context);
+            CookieSyncManager syncManager = CookieSyncManager.createInstance(context);
             syncManager.startSync();
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.removeAllCookie();
@@ -38,5 +39,11 @@ public class Utils {
             syncManager.stopSync();
             syncManager.sync();
         }
+    }
+
+    public static String getCountryByCode(String countryCode) {
+        Locale locale = new Locale("", countryCode);
+        String result = locale.getDisplayCountry();
+        return result.isEmpty() ? countryCode : result;
     }
 }

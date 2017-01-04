@@ -11,4 +11,6 @@
     <string name="email">Email:</string>
     <string name="country">Country:</string>
     <string name="phone">Phone:</string>
+    <string name="refresh">Refresh</string>
+    <string name="cancel">Cancel</string>
 </resources>

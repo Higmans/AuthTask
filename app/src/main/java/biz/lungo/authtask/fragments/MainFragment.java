@@ -1,10 +1,9 @@
 package biz.lungo.authtask.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import biz.lungo.authtask.R;
-import biz.lungo.authtask.activities.MainActivity;
 import biz.lungo.authtask.models.ProfileInfo;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends BaseFragment {
 
     private ProfileInfo profileInfo;
     private TextView tvGreeting;
@@ -26,14 +24,12 @@ public class MainFragment extends Fragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_profile_info:
-                    FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.rl_container, new ProfileFragment(), "profile_fragment");
-                    transaction.addToBackStack("profile_fragment");
-                    transaction.commit();
+                    ProfileFragment profileFragment = ProfileFragment.newInstance(profileInfo);
+                    getMainActivity().changeFragment(profileFragment, true);
                     break;
 
                 case R.id.btn_sign_out:
-                    ((MainActivity)getActivity()).signOut();
+                    getMainActivity().signOut();
                     break;
             }
         }
@@ -61,6 +57,20 @@ public class MainFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            profileInfo = savedInstanceState.getParcelable("profileInfo");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("profileInfo", profileInfo);
+    }
+
     private void setGreetingText() {
         tvGreeting.setText(String.format(getString(R.string.greeting_pattern),
                 profileInfo.getSalutation(),
@@ -68,11 +78,13 @@ public class MainFragment extends Fragment {
                 profileInfo.getLastName()));
     }
 
+    @Override
     public void setProfileInfo(ProfileInfo profileInfo) {
         this.profileInfo = profileInfo;
         if (profileInfo != null) {
             setGreetingText();
             btnProfileInfo.setEnabled(true);
+            tvGreeting.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
         } else {
             tvGreeting.setText(R.string.error_loading_data);
             tvGreeting.setTextColor(Color.RED);
